@@ -10,7 +10,7 @@
         create: yes
       tags: terminal
 
-    - name: 'set ctrl+[ to next tab in terminal'
+    - name: 'set ctrl+] to next tab in terminal'
       lineinfile:
         dest: '~/.config/xfce4/terminal/accels.scm'
         line: '(gtk_accel_path "<Actions>/terminal-window/next-tab" "<Primary>bracketright")'
@@ -18,7 +18,7 @@
         create: yes
       tags: terminal
 
-    - name: 'set ctrl+] to prev tab in terminal'
+    - name: 'set ctrl+[ to prev tab in terminal'
       lineinfile:
         dest: '~/.config/xfce4/terminal/accels.scm'
         line: '(gtk_accel_path "<Actions>/terminal-window/prev-tab" "<Primary>bracketleft")'
