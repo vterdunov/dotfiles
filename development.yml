@@ -2,7 +2,8 @@
 - hosts: all
 
   tasks:
-    - apt:
+    - name: Install packages
+      apt:
         name: '{{ item }}'
         state: latest
       become: yes

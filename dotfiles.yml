@@ -5,9 +5,9 @@
     - name: set ctrl+T shortcut for new tab in terminal
       lineinfile:
         dest: '~/.config/xfce4/terminal/accels.scm'
-        # regexp: '^; (gtk_accel_path "<Actions>/terminal-window/new-tab" "<Primary><Shift>t")'
         line: '(gtk_accel_path "<Actions>/terminal-window/new-tab" "<Primary>t")'
         state: present
+        create: yes
       tags: terminal
 
     - name: set branch name in PS1
