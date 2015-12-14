@@ -1,0 +1,19 @@
+---
+- hosts: all
+
+  tasks:
+    - name: set ctrl+T shortcut for new tab in terminal
+      lineinfile:
+        dest: '~/.config/xfce4/terminal/accels.scm'
+        # regexp: '^; (gtk_accel_path "<Actions>/terminal-window/new-tab" "<Primary><Shift>t")'
+        line: '(gtk_accel_path "<Actions>/terminal-window/new-tab" "<Primary>t")'
+        state: present
+      tags: terminal
+
+    - name: set branch name in PS1
+      lineinfile:
+        dest: '~/.bashrc'
+        line: 'PS1="\[\e]0;${debian_chroot:+($debian_chroot)}\w\\a\]\u@\h \w$(__git_ps1 "[%s]")$ "'
+        state: present
+        create: yes
+      tags: terminal

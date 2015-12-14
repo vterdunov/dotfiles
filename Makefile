@@ -12,3 +12,6 @@ TAGS := always
 
 install_development:
 	ansible-playbook development.yml -i local -v -K --tags $(TAGS)
+
+install_dotfiles:
+	ansible-playbook dotfiles.yml -i local -v -K
