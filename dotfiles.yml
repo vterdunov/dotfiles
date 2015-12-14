@@ -13,7 +13,7 @@
     - name: set branch name in PS1
       lineinfile:
         dest: '~/.bashrc'
-        line: 'PS1="\[\e]0;${debian_chroot:+($debian_chroot)}\w\\a\]\u@\h \w$(__git_ps1 "[%s]")$ "'
+        line: 'PS1="\[\e]0;${debian_chroot:+($debian_chroot)}\w\\a\]\u@\h \w\$(__git_ps1 "[%s]")$ "'
         state: present
         create: yes
       tags: terminal
