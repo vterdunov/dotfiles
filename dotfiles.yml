@@ -10,6 +10,22 @@
         create: yes
       tags: terminal
 
+    - name: 'set ctrl+[ to next tab in terminal'
+      lineinfile:
+        dest: '~/.config/xfce4/terminal/accels.scm'
+        line: '(gtk_accel_path "<Actions>/terminal-window/next-tab" "<Primary>bracketright")'
+        state: present
+        create: yes
+      tags: terminal
+
+    - name: 'set ctrl+] to prev tab in terminal'
+      lineinfile:
+        dest: '~/.config/xfce4/terminal/accels.scm'
+        line: '(gtk_accel_path "<Actions>/terminal-window/prev-tab" "<Primary>bracketleft")'
+        state: present
+        create: yes
+      tags: terminal
+
     - name: set branch name in PS1
       lineinfile:
         dest: '~/.bashrc'
