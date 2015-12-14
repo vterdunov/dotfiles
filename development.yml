@@ -2,7 +2,9 @@
 - hosts: all
 
   tasks:
-    - apt: name={{ item }} state=latest
+    - apt:
+        name: '{{ item }}'
+        state: latest
       become: yes
       with_items:
         - curl
@@ -19,7 +21,9 @@
       tags: always
 
     - name: Install linters
-      pip: name={{ item }} state=latest
+      pip:
+        name: '{{ item }}'
+        state: latest
       become: yes
       with_items:
         - pylint
@@ -27,10 +31,24 @@
         - bashate
       tags: always
 
-    - gem: name={{ item }} state=latest user_install=no
+    - name: set no doc for gems
+      lineinfile:
+        dest: '/etc/gemrc'
+        line: 'gem: --no-rdoc --no-ri'
+        create: yes
       become: yes
+      tags:
+        - ruby
+
+    - name: Install gems
+      gem:
+        name: '{{ item }}'
+        state: latest
+        user_install: no
+      # become: yes # no for rbenv
       ignore_errors: yes
       with_items:
+        - bundler
         - haml-lint
         - ruby-lint
         - sqlint
