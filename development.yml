@@ -1,0 +1,39 @@
+---
+- hosts: all
+
+  tasks:
+    - apt: name={{ item }} state=latest
+      become: yes
+      with_items:
+        - curl
+        - python-apt
+        - python-pycurl
+        - python-dev
+        - python-setuptools
+      when: ansible_distribution == 'Ubuntu'
+      tags: always
+
+    - name: Install pip
+      easy_install: name=pip
+      become: yes
+      tags: always
+
+    - name: Install linters
+      pip: name={{ item }} state=latest
+      become: yes
+      with_items:
+        - pylint
+        - ansible-lint
+        - bashate
+      tags: always
+
+    - gem: name={{ item }} state=latest user_install=no
+      become: yes
+      ignore_errors: yes
+      with_items:
+        - haml-lint
+        - ruby-lint
+        - sqlint
+        - rubocop
+      tags:
+        - ruby
