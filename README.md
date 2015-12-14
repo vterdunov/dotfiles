@@ -4,23 +4,22 @@
 * git
 
 ### Установка
-    ```
-    git clone <this repo>
-    make install_ansible # Если ansible еще не установлен
-    ```
+```
+git clone <this repo>
+make install_ansible # Если ansible еще не установлен
+```
 
 ### Общее ПО (VirtualBox, Vagrant, etc)
-    ```
-    install_common-software
-    ```
+```
+install_common-software
+```
 
 ### Установка пакетов для разработки
-    ```
-    make install_development # Можно задавать теги. См. `development.yml`
-    ```
+```
+make install_development # Можно задавать теги. См. `development.yml`
+```
 
 ### dotfiles
-    ```
-    make install_dotfiles
-    ```
-
+```
+make install_dotfiles
+```
