@@ -11,7 +11,7 @@ make install_ansible # Если ansible еще не установлен
 
 ### Общее ПО (VirtualBox, Vagrant, etc)
 ```
-install_common-software
+make install_common-software
 ```
 
 ### Установка пакетов для разработки
