@@ -50,6 +50,8 @@
       ignore_errors: yes
       with_items:
         - bundler
+        - rake
+        - serverspec
         - haml-lint
         - ruby-lint
         - sqlint
