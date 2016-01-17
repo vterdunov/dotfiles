@@ -2,32 +2,35 @@
 - hosts: all
 
   tasks:
-    - name: add f.lux repo
+    - name: Add f.lux repo
       lineinfile:
         dest: '/etc/apt/sources.list.d/kilian-ubuntu-f_lux-wily.list'
         line: 'deb http://ppa.launchpad.net/kilian/f.lux/ubuntu trusty main'
         create: yes
       become: yes
-      tags: flux
+      tags:
+       - flux
 
-    - name: install f.lux
+    - name: Install f.lux
       apt:
         name: fluxgui
         update_cache: yes
         state: latest
         cache_valid_time: 3600
       become: yes
-      tags: flux
+      tags:
+        - flux
 
-    - name: add virtualbox repo
+    - name: Add virtualbox repo
       lineinfile:
         dest: '/etc/apt/sources.list.d/virtualbox.list'
         line: 'deb http://download.virtualbox.org/virtualbox/debian wily contrib'
         create: yes
       become: yes
-      tags: virtualbox
+      tags:
+        - virtualbox
 
-    - name: add virtualbox key
+    - name: Add virtualbox key
       shell: wget -q https://www.virtualbox.org/download/oracle_vbox.asc -O- | sudo apt-key add -
 
     - name: install virtualbox
@@ -36,7 +39,8 @@
         state: latest
         update_cache: yes
         cache_valid_time: 3600
-      tags: virtualbox
+      tags:
+        - virtualbox
 
     - name: Check if vagrant package is installed
       command: dpkg-query -W vagrant
@@ -44,23 +48,26 @@
       failed_when: vagrant_check_install.rc > 1
       changed_when: vagrant_check_install.rc == 1
 
-    - name: Download vagrant package
+    - name: Download vagrant deb package
       get_url:
         url: 'https://releases.hashicorp.com/vagrant/1.7.4/vagrant_1.7.4_x86_64.deb'
         dest: '/tmp/vagrant.deb'
       when: vagrant_check_install == 1
-      tags: vagrant
+      tags:
+        - vagrant
 
     - name: install vagrant
       apt:
         deb: '/tmp/vagrant.deb'
         state: present
       when: vagrant_check_install == 1
-      tags: vagrant
+      tags:
+        - vagrant
 
-    - name: remove vagrant package
+    - name: Remove vagrant deb package
       file:
         path: '/tmp/vagrant.deb'
         state: absent
       when: vagrant_check_install == 1
-      tags: vagrant
+      tags:
+        - vagrant

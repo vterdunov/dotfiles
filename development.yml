@@ -13,15 +13,19 @@
         - python-pycurl
         - python-dev
         - python-setuptools
+        - shellcheck
       when: ansible_distribution == 'Ubuntu'
-      tags: always
+      tags:
+        - always
 
     - name: Install pip
-      easy_install: name=pip
+      easy_install:
+        name: pip
       become: yes
-      tags: always
+      tags:
+        - always
 
-    - name: Install linters
+    - name: Install linters from pip
       pip:
         name: '{{ item }}'
         state: latest
@@ -29,10 +33,10 @@
       with_items:
         - pylint
         - ansible-lint
-        - bashate
-      tags: always
+      tags:
+        - always
 
-    - name: set no doc for gems
+    - name: Set no doc for gems
       lineinfile:
         dest: '/etc/gemrc'
         line: 'gem: --no-rdoc --no-ri'
