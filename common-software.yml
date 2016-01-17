@@ -50,7 +50,7 @@
 
     - name: Download vagrant deb package
       get_url:
-        url: 'https://releases.hashicorp.com/vagrant/1.7.4/vagrant_1.7.4_x86_64.deb'
+        url: 'https://releases.hashicorp.com/vagrant/1.8.1/vagrant_1.8.1_x86_64.deb'
         dest: '/tmp/vagrant.deb'
       when: vagrant_check_install == 1
       tags:
