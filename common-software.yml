@@ -5,7 +5,7 @@
     - name: Add f.lux repo
       lineinfile:
         dest: '/etc/apt/sources.list.d/kilian-ubuntu-f_lux-wily.list'
-        line: 'deb http://ppa.launchpad.net/kilian/f.lux/ubuntu trusty main'
+        line: '{{ flux_repo }}'
         create: yes
       become: yes
       tags:
@@ -23,19 +23,24 @@
 
     - name: Add virtualbox repo
       lineinfile:
-        dest: '/etc/apt/sources.list.d/virtualbox.list'
-        line: 'deb http://download.virtualbox.org/virtualbox/debian wily contrib'
+        dest: '/etc/apt/sources.list'
+        line: '{{ virtualbox_repo }}'
         create: yes
       become: yes
       tags:
         - virtualbox
 
     - name: Add virtualbox key
-      shell: wget -q https://www.virtualbox.org/download/oracle_vbox.asc -O- | sudo apt-key add -
+      apt_key:
+        url: https://www.virtualbox.org/download/oracle_vbox.asc
+        state: present
+      become: yes
+      tags:
+        - virtualbox
 
-    - name: install virtualbox
+    - name: Install virtualbox
       apt:
-        name: virtualbox-5.0
+        name: '{{ virtualbox_release_version }}'
         state: latest
         update_cache: yes
         cache_valid_time: 3600
@@ -50,7 +55,7 @@
 
     - name: Download vagrant deb package
       get_url:
-        url: 'https://releases.hashicorp.com/vagrant/1.8.1/vagrant_1.8.1_x86_64.deb'
+        url: '{{ vagrant_deb_package_url }}'
         dest: '/tmp/vagrant.deb'
       when: vagrant_check_install == 1
       tags:

@@ -1,0 +1,31 @@
+---
+flux_repo: 'deb http://ppa.launchpad.net/kilian/f.lux/ubuntu trusty main'
+
+# virtualbox
+virtualbox_repo: 'deb http://download.virtualbox.org/virtualbox/debian wily contrib'
+virtualbox_release_version: virtualbox-5.0
+
+# vagrant
+vagrant_deb_package_url: 'https://releases.hashicorp.com/vagrant/1.8.1/vagrant_1.8.1_x86_64.deb'
+
+# list of deb packages
+deb_packages:
+  - curl
+  - python-apt
+  - python-pycurl
+  - python-dev
+  - python-setuptools
+  - shellcheck
+
+pip_linters:
+  - pylint
+  - ansible-lint
+
+ruby_gems:
+  - bundler
+  - rake
+  - serverspec
+  - haml-lint
+  - ruby-lint
+  - sqlint
+  - rubocop

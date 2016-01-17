@@ -8,12 +8,7 @@
         state: latest
       become: yes
       with_items:
-        - curl
-        - python-apt
-        - python-pycurl
-        - python-dev
-        - python-setuptools
-        - shellcheck
+        - '{{ deb_packages }}'
       when: ansible_distribution == 'Ubuntu'
       tags:
         - always
@@ -21,6 +16,7 @@
     - name: Install pip
       easy_install:
         name: pip
+        state: latest
       become: yes
       tags:
         - always
@@ -31,8 +27,7 @@
         state: latest
       become: yes
       with_items:
-        - pylint
-        - ansible-lint
+        - '{{ pip_linters }}'
       tags:
         - always
 
@@ -53,12 +48,6 @@
       # become: yes # no for rbenv
       ignore_errors: yes
       with_items:
-        - bundler
-        - rake
-        - serverspec
-        - haml-lint
-        - ruby-lint
-        - sqlint
-        - rubocop
+        - '{{ ruby_gems }}'
       tags:
         - ruby
