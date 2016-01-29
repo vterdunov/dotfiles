@@ -25,14 +25,22 @@
       tags:
         - always
 
+    - name: Udpdate pip
+      pip:
+        name: pip
+        state: latest
+      become: yes
+      tags:
+        - always
+
     - name: Install linters from pip
       pip:
         name: '{{ item }}'
         state: latest
-      become: yes
       with_items:
         - pylint
         - ansible-lint
+      become: yes
       tags:
         - always
 
@@ -54,7 +62,6 @@
       ignore_errors: yes
       with_items:
         - bundler
-        - rake
         - serverspec
         - haml-lint
         - ruby-lint
