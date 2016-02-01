@@ -21,13 +21,6 @@
     - name: Install pip
       easy_install:
         name: pip
-      become: yes
-      tags:
-        - always
-
-    - name: Udpdate pip
-      pip:
-        name: pip
         state: latest
       become: yes
       tags:
