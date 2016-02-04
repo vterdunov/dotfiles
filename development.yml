@@ -25,9 +25,9 @@
       pip:
         name: '{{ item }}'
         state: latest
-      become: yes
       with_items:
         - '{{ pip_linters }}'
+      become: yes
       tags:
         - always
 

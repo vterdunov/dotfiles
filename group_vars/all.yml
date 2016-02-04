@@ -23,7 +23,6 @@ pip_linters:
 
 ruby_gems:
   - bundler
-  - rake
   - serverspec
   - haml-lint
   - ruby-lint
