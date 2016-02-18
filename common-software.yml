@@ -23,7 +23,7 @@
 
     - name: Add virtualbox repo
       lineinfile:
-        dest: '/etc/apt/sources.list'
+        dest: '/etc/apt/sources.list.d/virtualbox.list'
         line: '{{ virtualbox_repo }}'
         create: yes
       become: yes
@@ -44,20 +44,24 @@
         state: latest
         update_cache: yes
         cache_valid_time: 3600
+      become: yes
       tags:
         - virtualbox
 
     - name: Check if vagrant package is installed
-      command: dpkg-query -W vagrant
+      command: "dpkg-query --showformat='${Version}' --show vagrant"
       register: vagrant_check_install
       failed_when: vagrant_check_install.rc > 1
       changed_when: vagrant_check_install.rc == 1
+
+    - name: Display checked vagrant version
+      debug: msg={{ vagrant_check_install.stdout }}
 
     - name: Download vagrant deb package
       get_url:
         url: '{{ vagrant_deb_package_url }}'
         dest: '/tmp/vagrant.deb'
-      when: vagrant_check_install == 1
+      when: vagrant_version not in vagrant_check_install.stdout
       tags:
         - vagrant
 
@@ -65,7 +69,8 @@
       apt:
         deb: '/tmp/vagrant.deb'
         state: present
-      when: vagrant_check_install == 1
+      when: vagrant_version not in vagrant_check_install.stdout
+      become: yes
       tags:
         - vagrant
 
@@ -73,6 +78,6 @@
       file:
         path: '/tmp/vagrant.deb'
         state: absent
-      when: vagrant_check_install == 1
+      when: vagrant_version not in vagrant_check_install.stdout
       tags:
         - vagrant
