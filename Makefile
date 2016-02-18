@@ -5,12 +5,11 @@ install-ansible:
 	sudo apt-get install ansible
 
 common-software:
-	ansible-playbook common-software.yml -i local -K
+	ansible-playbook common-software.yml -i local --ask-sudo-pass
 
 TAGS := always
-
-install-development:
-	ansible-playbook development.yml -i local -K --tags $(TAGS)
+development:
+	ansible-playbook development.yml -i local --ask-sudo-pass --tags $(TAGS)
 
 install-dotfiles:
-	ansible-playbook dotfiles.yml -i local -K
+	ansible-playbook dotfiles.yml -i local --ask-sudo-pass

@@ -30,6 +30,7 @@
       become: yes
       tags:
         - always
+      ignore_errors: yes
 
     - name: Set no doc for gems
       lineinfile:
