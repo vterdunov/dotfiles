@@ -16,7 +16,6 @@
         name: fluxgui
         update_cache: yes
         state: latest
-        cache_valid_time: 3600
       become: yes
       tags:
         - flux
@@ -43,7 +42,6 @@
         name: '{{ virtualbox_release_version }}'
         state: latest
         update_cache: yes
-        cache_valid_time: 3600
       become: yes
       tags:
         - virtualbox
