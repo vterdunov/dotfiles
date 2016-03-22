@@ -1,54 +1,61 @@
 ---
 - hosts: all
+  gather_facts: true
 
   tasks:
     - name: Install packages
       apt:
         name: '{{ item }}'
         state: latest
-      become: yes
       with_items:
-        - '{{ deb_packages }}'
+        - '{{ development_deb_packages }}'
+      become: yes
       when: ansible_distribution == 'Ubuntu'
       tags:
         - always
 
-    - name: Install pip
-      easy_install:
-        name: pip
-        state: latest
-      become: yes
-      tags:
-        - always
+    - block:
+      - name: Install pip
+        easy_install:
+          name: pip
+          state: latest
 
-    - name: Install linters from pip
-      pip:
-        name: '{{ item }}'
-        state: latest
+      - name: Install linters from pip
+        pip:
+          name: '{{ item }}'
+          state: latest
+        with_items:
+          - '{{ pip_linters }}'
+      become: yes
+      tags: always
+
+    - block:
+      - name: Set no doc for gems
+        lineinfile:
+          dest: '/etc/gemrc'
+          line: 'gem: --no-rdoc --no-ri'
+          create: yes
+        become: yes
+
+      - name: Install gems
+        gem:
+          name: '{{ item }}'
+          state: latest
+          user_install: no
+        # become: yes # no for rbenv
+        ignore_errors: yes
+        with_items:
+          - '{{ ruby_gems }}'
+      tags: ruby
+
+    - name: Set git configuration
+      shell: "{{ item }}"
       with_items:
-        - '{{ pip_linters }}'
-      become: yes
-      tags:
-        - always
-      ignore_errors: yes
+        - git config --global user.name VTerdunov 
+        - git config --global user.email v.v.terdunov@cit.rkomi.ru
+        - git config --global push.default simple
+        - git config --global core.editor '/usr/bin/subl -t -w'
+      tags: always
 
-    - name: Set no doc for gems
-      lineinfile:
-        dest: '/etc/gemrc'
-        line: 'gem: --no-rdoc --no-ri'
-        create: yes
-      become: yes
-      tags:
-        - ruby
-
-    - name: Install gems
-      gem:
-        name: '{{ item }}'
-        state: latest
-        user_install: no
-      # become: yes # no for rbenv
-      ignore_errors: yes
-      with_items:
-        - '{{ ruby_gems }}'
-      tags:
-        - ruby
+  roles:
+    - { role: rbenv, tags: ruby, become: yes }

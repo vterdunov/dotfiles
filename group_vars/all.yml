@@ -10,13 +10,20 @@ vagrant_version: 1.8.1
 vagrant_deb_package_url: 'https://releases.hashicorp.com/vagrant/{{ vagrant_version }}/vagrant_{{ vagrant_version }}_x86_64.deb'
 
 # list of deb packages
-deb_packages:
+development_deb_packages:
   - curl
   - python-apt
   - python-pycurl
   - python-dev
   - python-setuptools
   - shellcheck
+  - git-flow
+
+common_deb_packages:
+  - undistract-me
+  - plank
+  - numix-gtk-theme
+  - numix-icon-theme-circle
 
 pip_linters:
   - pylint
@@ -29,3 +36,8 @@ ruby_gems:
   - ruby-lint
   - sqlint
   - rubocop
+  
+ppa:
+  - 'ppa:webupd8team/sublime-text-3'
+  - 'ppa:ricotz/docky'
+  - 'ppa:numix/ppa'

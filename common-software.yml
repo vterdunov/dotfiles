@@ -2,6 +2,23 @@
 - hosts: all
 
   tasks:
+    - name: Add PPA
+      apt_repository:
+        repo: '{{ item }}'
+        state: present
+      with_items:
+        - '{{ ppa }}'
+      become: yes
+
+    - name: Install sublime text 3
+      apt:
+        name: sublime-text-installer
+        update_cache: yes
+        state: latest
+      become: yes
+      tags:
+        - text
+
     - name: Add f.lux repo
       lineinfile:
         dest: '/etc/apt/sources.list.d/kilian-ubuntu-f_lux-wily.list'
@@ -10,6 +27,15 @@
       become: yes
       tags:
        - flux
+
+    - name: Install f.lux key
+      apt_key:
+        keyserver: keyserver.ubuntu.com
+        id: FAEB83059BD4ED25
+        state: present
+      become: yes
+      tags:
+        - flux
 
     - name: Install f.lux
       apt:
@@ -79,3 +105,11 @@
       when: vagrant_version not in vagrant_check_install.stdout
       tags:
         - vagrant
+
+    - name: install common deb packages
+      apt:
+        name: '{{ item }}'
+        state: present
+      become: yes
+      with_items:
+        - '{{ common_deb_packages }}'
