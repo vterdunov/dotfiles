@@ -4,12 +4,12 @@ install-ansible:
 	sudo apt-get update
 	sudo apt-get install -y ansible
 
-common-software:
+install-common-software:
 	ansible-playbook common-software.yml -i local --ask-sudo-pass
 
 TAGS := always
-development:
-	# ansible-galaxy install --force -r requirements.yml 
+install-development:
+	ansible-galaxy install --force -r requirements.yml 
 	ansible-playbook development.yml -i local --ask-sudo-pass --tags $(TAGS) -vv
 
 install-dotfiles:

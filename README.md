@@ -6,20 +6,20 @@
 ### Установка
 ```
 git clone <this repo>
-make install_ansible # Если ansible еще не установлен
+make install-ansible # Если ansible еще не установлен
 ```
 
 ### Общее ПО (VirtualBox, Vagrant, etc)
 ```
-make install_common-software
+make install-common-software
 ```
 
 ### Установка пакетов для разработки
 ```
-make install_development # Можно задавать теги. См. `development.yml`
+make install-development # Можно задавать теги. См. `development.yml`
 ```
 
 ### dotfiles
 ```
-make install_dotfiles
+make install-dotfiles
 ```

@@ -51,10 +51,7 @@
     - name: Set git configuration
       shell: "{{ item }}"
       with_items:
-        - git config --global user.name VTerdunov 
-        - git config --global user.email v.v.terdunov@cit.rkomi.ru
-        - git config --global push.default simple
-        - git config --global core.editor '/usr/bin/subl -t -w'
+        - '{{ git_configs }}'
       tags: always
 
   roles:

@@ -71,7 +71,8 @@
           deb: '/tmp/vagrant.deb'
           state: present
         when: vagrant_version not in vagrant_check_install.stdout
-
+        become: yes
+        
       - name: Remove vagrant deb package
         file:
           path: '/tmp/vagrant.deb'

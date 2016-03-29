@@ -6,6 +6,9 @@ virtualbox_release_version: virtualbox-5.0
 vagrant_version: 1.8.1
 vagrant_deb_package_url: 'https://releases.hashicorp.com/vagrant/{{ vagrant_version }}/vagrant_{{ vagrant_version }}_x86_64.deb'
 
+username: kbobykin
+email: k.y.bobykin@cit.rkomi.ru
+
 # list of deb packages
 development_deb_packages:
   - curl
@@ -42,3 +45,9 @@ ppa:
   - 'deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main'
   - 'deb http://ppa.launchpad.net/kilian/f.lux/ubuntu trusty main'
   - 'deb http://download.virtualbox.org/virtualbox/debian wily contrib'
+
+git_configs:
+  - 'git config --global user.name {{ username }}'
+  - 'git config --global user.email {{ email }}'
+  - 'git config --global push.default simple'
+  - "git config --global core.editor '/usr/bin/subl -t -w'"
