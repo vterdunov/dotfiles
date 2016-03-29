@@ -6,8 +6,8 @@ virtualbox_release_version: virtualbox-5.0
 vagrant_version: 1.8.1
 vagrant_deb_package_url: 'https://releases.hashicorp.com/vagrant/{{ vagrant_version }}/vagrant_{{ vagrant_version }}_x86_64.deb'
 
-username: kbobykin
-email: k.y.bobykin@cit.rkomi.ru
+username: user
+email: test@email.com
 
 # list of deb packages
 development_deb_packages:
