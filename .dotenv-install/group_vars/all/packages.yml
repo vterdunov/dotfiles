@@ -1,0 +1,16 @@
+deb_packages:
+  - bat
+  - htop
+  - wmctrl
+  - fd-find
+
+snap_packages:
+  - { name: anki-woodrow }
+  - { name: kubectl, classic: true }
+  - { name: helm, channel: "3.0/stable", classic: true }
+  - { name: postman }
+  - { name: skype }
+  - { name: slack }
+  - { name: telegram-desktop }
+  - { name: vlc }
+  - { name: zoom-client }

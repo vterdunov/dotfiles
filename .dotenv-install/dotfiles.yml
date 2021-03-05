@@ -1,0 +1,42 @@
+
+---
+- hosts: localhost
+  connection: local
+  become: yes
+
+  vars:
+    ansible_python_interpreter: /usr/bin/python3
+
+  tasks:
+    - name: Install deb packages
+      apt:
+        name: '{{ item }}'
+        state: latest
+        cache_valid_time: 900
+      loop:
+        - '{{ deb_packages }}'
+
+    - name: Create directories
+      file:
+        path: '{{ item.path }}'
+        state: directory
+      become: no
+      loop:
+        - { path: ~/.local/bin }
+
+    - name: Create a symbolic links
+      file:
+        src: '{{ item.src }}'
+        dest: '{{ item.dest }}'
+        state: link
+      become: no
+      loop:
+        - { src: /usr/bin/batcat, dest: ~/.local/bin/bat }
+        - { src: /usr/bin/fdfind, dest: ~/.local/bin/fd }
+
+    - name: Install snap packages
+      snap:
+        name: '{{ item.name }}'
+        classic: '{{ item.classic | default(false) }}'
+        channel: '{{ item.channel | default("stable") }}'
+      loop: '{{ snap_packages }}'
