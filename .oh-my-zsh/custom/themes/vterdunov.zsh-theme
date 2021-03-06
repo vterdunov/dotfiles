@@ -1,21 +1,40 @@
-DARK_BLUE="\033[0;36m"
+KUBE_PS1_NS_ENABLE=false
+KUBE_PS1_SYMBOL_DEFAULT=⎈
+KUBE_PS1_SEPARATOR=''
+KUBE_PS1_PREFIX=''
+KUBE_PS1_SUFFIX=''
+KUBE_PS1_DIVIDER=''
+KUBE_PS1_CTX_COLOR=23
+KUBE_PS1_SYMBOL_COLOR=23
 
-br_name () {
+_br_name () {
   local name
   name=$(git rev-parse --abbrev-ref --symbolic-full-name @{u} 2>/dev/null)
-  if [[ -n $br_name ]]; then
-    echo "->${name}"
+  if [[ -n $name ]]; then
+    echo -n "->${name}"
   fi
 }
 
-ret_status='%(?.%F{green}$.%F{red}$)'
+_git() {
+  if [[ -d .git ]]; then
+    echo "%F{23}[$(git_current_branch)$(_br_name)]"
+  fi
+}
 
-PROMPT=$'%{$fg_bold[blue]%}┌─[%~]$(git_prompt_info)
-%{$fg_bold[blue]%}└─[%(?.%{$fg_bold[green]%}$.%{$fg_bold[red]%}$)%{$fg_bold[blue]%}]%{$reset_color%}'
-RPROMPT='%{$fg_bold[grey]%}[%*]%{$reset_color%}'
+_k8s_context() {
+  echo "%F{23}[$(kube_ps1)%F{23}]"
+}
+
+_ret_status() {
+  echo "%(?.%F{2}$.%F{1}$)"
+}
+
+_clock() {
+  echo "%F{244}[%*]"
+}
+
+
+PROMPT=$'%F{4}┌─[%~]$(_git)$(_k8s_context)
+%F{4}└─[$(_ret_status)%F{4}]%F{15} '
+RPROMPT="$(_clock)"
 PS2=$' \e[0;34m%}%B>%{\e[0m%} '
-
-ZSH_THEME_GIT_PROMPT_PREFIX="${DARK_BLUE}["
-ZSH_THEME_GIT_PROMPT_SUFFIX="$(br_name)]%{$reset_color%}"
-ZSH_THEME_GIT_PROMPT_DIRTY=""
-ZSH_THEME_GIT_PROMPT_CLEAN=""
