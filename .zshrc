@@ -9,6 +9,7 @@ plugins=(
    helm
    docker
    docker-compose
+   kube-ps1
 )
 
 source $ZSH/oh-my-zsh.sh
@@ -29,7 +30,9 @@ setopt HIST_FIND_NO_DUPS
 setopt HIST_SAVE_NO_DUPS
 setopt HIST_BEEP
 
-export FZF_DEFAULT_COMMAND='fd --type f --color=never --hidden'
+export FD_OPTS='--follow --exclude .git --exclude node_modules'
+
+export FZF_DEFAULT_COMMAND="fd --type f --color=never --hidden $FD_OPTS"
 export FZF_DEFAULT_OPTS='--color=bg+:#343d46,gutter:-1,pointer:#ff3c3c,info:#0dbc79,hl:#0dbc79,hl+:#23d18b --reverse'
 
 export FZF_ALT_C_COMMAND='fd --type d . --color=never --hidden'
@@ -42,6 +45,7 @@ export EDITOR="code -w"
 export DOCKER_BUILDKIT=1
 export COMPOSE_DOCKER_CLI_BUILD=1
 export PATH=$PATH:/usr/local/go/bin
+export PATH="${KREW_ROOT:-$HOME/.krew}/bin:$PATH"
 
 if [ -z "$SSH_AUTH_SOCK" ]; then
    # Check for a currently running instance of the agent

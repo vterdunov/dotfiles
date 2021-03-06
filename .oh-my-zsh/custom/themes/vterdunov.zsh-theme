@@ -8,9 +8,10 @@ br_name () {
   fi
 }
 
+ret_status='%(?.%F{green}$.%F{red}$)'
 
 PROMPT=$'%{$fg_bold[blue]%}┌─[%~]$(git_prompt_info)
-%{$fg_bold[blue]%}└─[%{$fg_bold[green]%}$%{$fg_bold[blue]%}]%{$reset_color%} '
+%{$fg_bold[blue]%}└─[%(?.%{$fg_bold[green]%}$.%{$fg_bold[red]%}$)%{$fg_bold[blue]%}]%{$reset_color%}'
 RPROMPT='%{$fg_bold[grey]%}[%*]%{$reset_color%}'
 PS2=$' \e[0;34m%}%B>%{\e[0m%} '
 
