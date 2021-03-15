@@ -59,5 +59,7 @@ fi
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
+autoload -Uz compinit && compinit
+
 alias dotfiles='/usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME'
 alias bat='bat --color=always --style=plain --pager=never'
