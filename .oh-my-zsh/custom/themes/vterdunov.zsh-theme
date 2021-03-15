@@ -7,6 +7,10 @@ KUBE_PS1_DIVIDER=''
 KUBE_PS1_CTX_COLOR=23
 KUBE_PS1_SYMBOL_COLOR=23
 
+
+setopt promptsubst
+setopt promptpercent
+
 _br_name () {
   local name
   name=$(git rev-parse --abbrev-ref --symbolic-full-name @{u} 2>/dev/null)
@@ -30,11 +34,11 @@ _ret_status() {
 }
 
 _clock() {
-  echo "%F{244}[%*]"
+  echo "[%*]"
 }
 
 
-PROMPT=$'%F{4}┌─[%~]$(_git)$(_k8s_context)
-%F{4}└─[$(_ret_status)%F{4}]%F{15} '
-RPROMPT="$(_clock)"
+PROMPT='%F{4}┌─[%~]$(_git)$(_k8s_context)
+%F{4}└─[$(_ret_status)%F{4}]%f '
+RPROMPT='%F{244}$(_clock)%f'
 PS2=$' \e[0;34m%}%B>%{\e[0m%} '
