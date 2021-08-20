@@ -1,0 +1,28 @@
+[user]
+	name = vterdunov
+	email = mail2slick@gmail.com
+	signingkey = 59546B1D80C17EEA
+
+[push]
+	default = simple
+
+[fetch]
+	prune = true
+
+[pull]
+	ff = only
+
+[submodule]
+	recurse = true
+
+[core]
+	editor = code --wait
+
+[diff]
+	tool = meld
+
+[pager]
+	branch = false
+
+[commit]
+	gpgsign = true
